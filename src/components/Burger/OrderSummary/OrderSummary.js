@@ -18,7 +18,7 @@ const orderSummary = (props) => {
             {renderIngredients()}
             </ul>
             <Button type='Success'><div>CONTINUE</div></Button>
-            <Button type='Danger'>CANCEL</Button>
+            <Button type='Danger' click={props.orderCancel}>CANCEL</Button>
         </Aux>)
 }
 
