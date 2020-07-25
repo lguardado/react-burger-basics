@@ -28,7 +28,11 @@ class BurgerBuilder extends Component {
     }
 
     purchaseHandler = () => {
-        this.setState({isPurchasing: true})
+        this.setState({ isPurchasing: true })
+    }
+
+    hideModalHandler = () => {
+        this.setState({ isPurchasing: false })
     }
 
     updateCanOrder() {
@@ -49,7 +53,7 @@ class BurgerBuilder extends Component {
             ingredients: updatedIngredients,
             totalPrice: oldTotal + INGREDIENTS_PRICES[type]
         }, this.updateCanOrder)
-        
+
     }
 
     removeIngredientHandler = (type) => {
@@ -77,21 +81,21 @@ class BurgerBuilder extends Component {
         }
 
         return (
-        <div className={classes.BurgerBuilder}>
-            <Modal purchasing={this.state.isPurchasing}>
-                <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
-            </Modal>
-            <Burger ingredients={this.state.ingredients} />
-            {this.renderBuildControls}
-            <BuildControls
-                total={this.state.totalPrice}
-                ingredientAdded={this.addIngredientHandler}
-                ingredientRemoved={this.removeIngredientHandler}
-                disabledInfo={disabledInfo}
-                canOrder={this.state.canOrder}
-                purchase={this.purchaseHandler}
-            />
-        </div>)
+            <div className={classes.BurgerBuilder}>
+                <Modal purchasing={this.state.isPurchasing} backdropClickHandler={this.hideModalHandler}>
+                    <OrderSummary ingredients={this.state.ingredients}></OrderSummary>
+                </Modal>
+                <Burger ingredients={this.state.ingredients} />
+                {this.renderBuildControls}
+                <BuildControls
+                    total={this.state.totalPrice}
+                    ingredientAdded={this.addIngredientHandler}
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabledInfo={disabledInfo}
+                    canOrder={this.state.canOrder}
+                    purchase={this.purchaseHandler}
+                />
+            </div>)
     };
 }
 

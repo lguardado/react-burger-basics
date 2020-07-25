@@ -10,7 +10,7 @@ const controls = [
     { label: 'Avocado', type: 'avocado' },
 ]
 
-const BuildControls = (props) => {
+const buildControls = (props) => {
     const renderControls = controls.map(control => {
         return <BuildControl
             key={control.label}
@@ -34,4 +34,4 @@ const BuildControls = (props) => {
     );
 }
 
-export default BuildControls
+export default buildControls

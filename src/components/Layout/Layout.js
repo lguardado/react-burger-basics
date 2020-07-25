@@ -2,7 +2,7 @@ import React from 'react'
 import Aux from '../../hoc/Aux'
 import classes from './Layout.css'
 
-const Layout = (props) => (
+const layout = (props) => (
     <Aux>
         <div>toolbar, sidebar, bla</div>
         <main className={classes.Content}>
@@ -11,4 +11,4 @@ const Layout = (props) => (
     </Aux>
 )
 
-export default Layout
+export default layout

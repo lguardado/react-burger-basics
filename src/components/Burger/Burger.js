@@ -3,7 +3,7 @@ import React from 'react'
 import classes from './Burger.css'
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient'
 
-const Burger = (props) => {
+const burger = (props) => {
     let transformedIngredients = Object.keys(props.ingredients)
         .map(ingKey => {
             return [...Array(props.ingredients[ingKey])].map((_, quantity) => {
@@ -26,4 +26,4 @@ const Burger = (props) => {
     )
 }
 
-export default Burger
+export default burger

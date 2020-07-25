@@ -1,7 +1,8 @@
 import React from 'react'
 import Aux from '../../../hoc/Aux'
+import Button from '../../UI/Button/Button'
 
-const OrderSummary = (props) => {
+const orderSummary = (props) => {
 
     const renderIngredients = () => (
         Object.keys(props.ingredients)
@@ -16,8 +17,9 @@ const OrderSummary = (props) => {
             <ul>
             {renderIngredients()}
             </ul>
-
+            <Button type='Success'><div>CONTINUE</div></Button>
+            <Button type='Danger'>CANCEL</Button>
         </Aux>)
 }
 
-export default OrderSummary
+export default orderSummary
