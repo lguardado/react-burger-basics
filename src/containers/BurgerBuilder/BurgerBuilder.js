@@ -35,6 +35,10 @@ class BurgerBuilder extends Component {
         this.setState({ isPurchasing: false })
     }
 
+    purchaseContinueHandler = () => {
+        alert('your order has been placed!')
+    }
+
     updateCanOrder() {
         const counter = Object.values(this.state.ingredients)
             .reduce((count, el) => {
@@ -85,7 +89,9 @@ class BurgerBuilder extends Component {
                 <Modal purchasing={this.state.isPurchasing} backdropClickHandler={this.purchaseCancelHandler}>
                     <OrderSummary
                         ingredients={this.state.ingredients}
-                        orderCancel={this.purchaseCancelHandler}
+                        purchaseCancelled={this.purchaseCancelHandler}
+                        purchaseContinued={this.purchaseContinueHandler}
+                        total={this.state.totalPrice}
                     ></OrderSummary>
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />
