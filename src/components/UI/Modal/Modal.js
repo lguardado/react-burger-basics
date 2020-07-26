@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import classes from './Modal.css'
-import Aux from '../../../hoc/Aux'
+import Aux from '../../../hoc/Aux/Aux'
 import Backdrop from '../Backrdop/Backdrop'
 
 class Modal extends Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps, _) {
         return nextProps.purchasing !== this.props.purchasing
     }
 
