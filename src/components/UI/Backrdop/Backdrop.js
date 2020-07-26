@@ -6,7 +6,7 @@ const backdrop = (props) => (
     props.visible ?
     <div 
         className={classes.Backdrop}
-        onClick={props.clicked}
+        onClick={props.backdropClicked}
         >
     </div>: null
 )
