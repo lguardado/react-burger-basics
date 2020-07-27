@@ -14,8 +14,7 @@ const INGREDIENTS_PRICES = {
 }
 
 class BurgerBuilder extends Component {
-    state = {
-        burgers: [],
+    initialState = {
         ingredients: {
             'seitan': 0,
             'avocado': 0,
@@ -27,6 +26,8 @@ class BurgerBuilder extends Component {
         isPurchasing: false,
     }
 
+    state = {...this.initialState}
+
     purchaseHandler = () => {
         this.setState({ isPurchasing: true })
     }
@@ -37,6 +38,8 @@ class BurgerBuilder extends Component {
 
     purchaseContinueHandler = () => {
         alert('your order has been placed!')
+        // it restarts the app state
+        this.setState(this.initialState)
     }
 
     updateCanOrder() {
