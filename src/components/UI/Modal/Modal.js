@@ -15,6 +15,7 @@ class Modal extends Component {
                 <Backdrop visible={this.props.visible} backdropClicked={this.props.backdropClickHandler} />
                 <div className={classes.Modal}
                     style={{
+                        textAlign: 'center',
                         opacity: !this.props.visible ? '0' : '1',
                         transform: !this.props.visible ? 'translateY(-100vh)' : 'translateY(0)'
                     }}>
