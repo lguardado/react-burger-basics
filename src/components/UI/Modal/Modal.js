@@ -6,17 +6,17 @@ import Backdrop from '../Backrdop/Backdrop'
 class Modal extends Component {
 
     shouldComponentUpdate(nextProps, _) {
-        return nextProps.purchasing !== this.props.purchasing
+        return nextProps.visible !== this.props.visible || nextProps.children !== this.props.children
     }
 
     render() {
         return (
             <Aux>
-                <Backdrop visible={this.props.purchasing} backdropClicked={this.props.backdropClickHandler} />
+                <Backdrop visible={this.props.visible} backdropClicked={this.props.backdropClickHandler} />
                 <div className={classes.Modal}
                     style={{
-                        opacity: !this.props.purchasing ? '0' : '1',
-                        transform: !this.props.purchasing ? 'translateY(-100vh)' : 'translateY(0)'
+                        opacity: !this.props.visible ? '0' : '1',
+                        transform: !this.props.visible ? 'translateY(-100vh)' : 'translateY(0)'
                     }}>
                     {this.props.children}
                 </div>
