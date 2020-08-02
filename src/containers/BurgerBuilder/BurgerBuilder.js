@@ -8,6 +8,7 @@ import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import axios from '../../axios-orders'
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import Aux from '../../hoc/Aux/Aux'
 
 const INGREDIENTS_PRICES = {
     'seitan': 0.6,
@@ -18,19 +19,23 @@ const INGREDIENTS_PRICES = {
 
 class BurgerBuilder extends Component {
     initialState = {
-        ingredients: {
-            'seitan': 0,
-            'avocado': 0,
-            'beans-medallion': 0,
-            'cheese': 0,
-        },
+        ingredients: null,
         totalPrice: 4,
         canOrder: false,
         isPurchasing: false,
         loading: false,
+        error: false,
     }
 
     state = { ...this.initialState }
+
+    componentWillMount() {
+        axios.get('/ingredients.json')
+            .then(response => {
+                this.setState({ ingredients: response.data, loading: false })
+            })
+            .catch(err => this.setState({ error: true }))
+    }
 
     componentDidUpdate(nextProps, nextState) {
         if (nextProps === this.initialState) {
@@ -63,20 +68,22 @@ class BurgerBuilder extends Component {
             deliveryMethod: 'fastest'
         }
         this.setState({ loading: true })
+
         axios.post('/orders.json', payload)
             .then(response => {
                 this.resetBurger()
             })
             .catch(error => {
             }).finally(() => {
-                this.setState({ loading: false , isPurchasing: false})
+                this.setState({ loading: false, isPurchasing: false })
             })
-
     }
 
     resetBurger() {
-           // it restarts the app state
-           this.setState(this.initialState)
+        // it restarts the app state
+        // commenting this rather than implementing 
+        // a better solution just to stick to the course.
+        // this.setState(this.initialState)
     }
 
     updateCanOrder() {
@@ -123,25 +130,16 @@ class BurgerBuilder extends Component {
         for (let key in disabledInfo) {
             disabledInfo[key] = disabledInfo[key] === 0
         }
-        let summary = <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseCancelled={this.purchaseCancelHandler}
-            purchaseContinued={this.purchaseContinueHandler}
-            total={this.state.totalPrice}
-        ></OrderSummary>
+        let renderSummary = null
 
         if (this.state.loading) {
-            summary = <Spinner />
+            renderSummary = <Spinner />
         }
 
-        return (
-            <div className={classes.BurgerBuilder}>
-                <Modal 
-                visible={this.state.isPurchasing} 
-                backdropClickHandler={this.purchaseCancelHandler}>
-                    {summary}
-                </Modal>
-                <Burger ingredients={this.state.ingredients} />
+        let renderBurger = this.state.error ? <p>Can't get ingredients</p> : <Spinner />
+
+        if (this.state.ingredients) {
+            renderBurger = <Aux><Burger ingredients={this.state.ingredients} />
                 {this.renderBuildControls}
                 <BuildControls
                     total={this.state.totalPrice}
@@ -151,6 +149,24 @@ class BurgerBuilder extends Component {
                     canOrder={this.state.canOrder}
                     purchase={this.purchaseHandler}
                 />
+            </Aux>
+            renderSummary = <OrderSummary
+                ingredients={this.state.ingredients}
+                purchaseCancelled={this.purchaseCancelHandler}
+                purchaseContinued={this.purchaseContinueHandler}
+                total={this.state.totalPrice}
+            ></OrderSummary>
+
+        }
+
+        return (
+            <div className={classes.BurgerBuilder}>
+                <Modal
+                    visible={this.state.isPurchasing}
+                    backdropClickHandler={this.purchaseCancelHandler}>
+                    {renderSummary}
+                </Modal>
+                {renderBurger}
             </div>)
     };
 }
