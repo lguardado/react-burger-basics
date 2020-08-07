@@ -52,31 +52,32 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        const payload = {
-            ingredients: this.state.ingredients,
-            // this price should be calculated in the BE
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Lucas',
-                address: {
-                    street: 'Test street 123',
-                    zipCode: '12345',
-                    country: 'Argentina',
-                },
-                email: 'test@a.com',
-            },
-            deliveryMethod: 'fastest'
-        }
-        this.setState({ loading: true })
+        this.props.history.push('/checkout', this.state.ingredients)
+        // const payload = {
+        //     ingredients: this.state.ingredients,
+        //     // this price should be calculated in the BE
+        //     price: this.state.totalPrice,
+        //     customer: {
+        //         name: 'Lucas',
+        //         address: {
+        //             street: 'Test street 123',
+        //             zipCode: '12345',
+        //             country: 'Argentina',
+        //         },
+        //         email: 'test@a.com',
+        //     },
+        //     deliveryMethod: 'fastest'
+        // }
+        // this.setState({ loading: true })
 
-        axios.post('/orders.json', payload)
-            .then(response => {
-                this.resetBurger()
-            })
-            .catch(error => {
-            }).finally(() => {
-                this.setState({ loading: false, isPurchasing: false })
-            })
+        // axios.post('/orders.json', payload)
+        //     .then(response => {
+        //         this.resetBurger()
+        //     })
+        //     .catch(error => {
+        //     }).finally(() => {
+        //         this.setState({ loading: false, isPurchasing: false })
+        //     })
     }
 
     resetBurger() {
