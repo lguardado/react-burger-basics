@@ -23,11 +23,11 @@ class ContactData extends Component {
             ingredients: this.props.ingredients,
             price: this.props.price,
             customer: {
-                name: 'Lucas',
+                name: 'Max Schwarzmüller',
                 address: {
-                    street: 'test 1',
-                    zipCode: '123',
-                    country: 'Argentina'
+                    street: 'Teststreet 1',
+                    zipCode: '41351',
+                    country: 'Germany'
                 },
                 email: 'test@test.com'
             },
@@ -50,7 +50,7 @@ class ContactData extends Component {
                 <input className={classes.Input} type="email" name="email" placeholder="Your Mail" />
                 <input className={classes.Input} type="text" name="street" placeholder="Street" />
                 <input className={classes.Input} type="text" name="postal" placeholder="Postal Code" />
-                <Button btnType="Success" click={this.orderHandler}>ORDER</Button>
+                <Button btnType="Success" clicked={this.orderHandler}>ORDER</Button>
             </form>
         );
         if ( this.state.loading ) {

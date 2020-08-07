@@ -1,37 +1,31 @@
-import React from 'react'
+import React from 'react';
 
-import classes from './BuildControls.css'
-import BuildControl from './BuildControl/BuildControl'
+import classes from './BuildControls.css';
+import BuildControl from './BuildControl/BuildControl';
 
 const controls = [
-    { label: 'Beans Medallion', type: 'beans-medallion' },
-    { label: 'Cheese', type: 'cheese' },
-    { label: 'Seitan', type: 'seitan' },
     { label: 'Avocado', type: 'avocado' },
-]
+    { label: 'Seitan', type: 'seitan' },
+    { label: 'Cheese', type: 'cheese' },
+    { label: 'Beans-medallion', type: 'beans-medallion' },
+];
 
-const buildControls = (props) => {
-    const renderControls = controls.map(control => {
-        return <BuildControl
-            key={control.label}
-            label={control.label}
-            addClick={() => props.ingredientAdded(control.type)}
-            removeClick={() => props.ingredientRemoved(control.type)}
-            disabled={props.disabledInfo[control.type]}
-        />
-    })
+const buildControls = (props) => (
+    <div className={classes.BuildControls}>
+        <p>Current Price: <strong>{props.price.toFixed(2)}</strong></p>
+        {controls.map(ctrl => (
+            <BuildControl 
+                key={ctrl.label} 
+                label={ctrl.label}
+                added={() => props.ingredientAdded(ctrl.type)}
+                removed={() => props.ingredientRemoved(ctrl.type)}
+                disabled={props.disabled[ctrl.type]} />
+        ))}
+        <button 
+            className={classes.OrderButton}
+            disabled={!props.purchasable}
+            onClick={props.ordered}>ORDER NOW</button>
+    </div>
+);
 
-    return (
-        <div className={classes.BuildControls}>
-            <p>Total price: <strong>{props.total.toFixed(2)}</strong></p>
-            {renderControls}
-            <button
-                className={classes.OrderButton}
-                disabled={!props.canOrder}
-                onClick={props.purchase}
-            >ORDER NOW</button>
-        </div>
-    );
-}
-
-export default buildControls
+export default buildControls;
